@@ -22,6 +22,7 @@
     <build.path>D:\toolbox</build.path>
     <!-- toolbox 输出依赖路径定义 -->
     <libs.path>D:\toolbox\libs</libs.path>
+    <skipTests>true</skipTests>
   </properties>
 
   <dependencies>
