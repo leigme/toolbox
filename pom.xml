@@ -16,6 +16,8 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
+    <!-- main 包名称 -->
+    <main.path>me.leig.toolbox.App</main.path>
     <!-- toolbox 输出项目路径定义 -->
     <build.path>D:\toolbox</build.path>
     <!-- toolbox 输出依赖路径定义 -->
@@ -77,7 +79,7 @@
           <configuration>
             <archive>
               <manifest>
-                <mainClass>me.leig.App</mainClass>
+                <mainClass>${main.path}</mainClass>
                 <addClasspath>true</addClasspath>
                 <classpathPrefix>libs/</classpathPrefix>
               </manifest>
