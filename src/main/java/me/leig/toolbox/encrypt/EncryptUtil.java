@@ -20,15 +20,18 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.log4j.Logger;
 
 /**
  * 加密 工具类
  *
- * @author xwood
- * @version 20170301
+ * @author leig
+ * @version 20180301
+ *
  */
 public class EncryptUtil {
-	
+
+	private Logger log = Logger.getLogger(EncryptUtil.class);
 	
 	private static final String AESTYPE ="AES/ECB/PKCS5Padding"; 
 	
@@ -55,23 +58,29 @@ public class EncryptUtil {
 	        return result;
 	    } catch (NoSuchAlgorithmException e) {
 	        e.printStackTrace();
-	        throw new Exception("ASE加密失败1:"+e.getMessage());
+	        throw new Exception("ASE加密失败1:" + e.getMessage());
 	    } catch (NoSuchPaddingException e) {
 	        e.printStackTrace();
-	        throw new Exception("ASE加密失败2:"+e.getMessage());
+	        throw new Exception("ASE加密失败2:" + e.getMessage());
 	    } catch (InvalidKeyException e) {
 	        e.printStackTrace();
-	        throw new Exception("ASE加密失败3:"+e.getMessage());
+	        throw new Exception("ASE加密失败3:" + e.getMessage());
 	    } catch (IllegalBlockSizeException e) {
 	        e.printStackTrace();
-	        throw new Exception("ASE加密失败5:"+e.getMessage());
+	        throw new Exception("ASE加密失败5:" + e.getMessage());
 	    } catch (BadPaddingException e) {
 	        e.printStackTrace();
-	        throw new Exception("ASE加密失败6:"+e.getMessage());
+	        throw new Exception("ASE加密失败6:" + e.getMessage());
 	    }
     }
-    
-    public static String base_encode64(byte[] data) {
+
+	/**
+	 * 编码处理
+	 *
+	 * @param data
+	 * @return
+	 */
+	public static String base_encode64(byte[] data) {
     	
     	String result = new String(Base64.encodeBase64(data));
     	 //$src  = array("/","+","=");
@@ -82,8 +91,14 @@ public class EncryptUtil {
     	
     	return result;
     }
-    
-    public static byte[] base_decode64(String result) {
+
+	/**
+	 * 解码处理
+	 *
+	 * @param result
+	 * @return
+	 */
+	public static byte[] base_decode64(String result) {
 	   	 //$src  = array("/","+","=");
 	        //$dist = array("_a","_b","_c");
 	   	result = result.replaceAll("_a", "/");
@@ -96,10 +111,13 @@ public class EncryptUtil {
     }
     
 	
-    /**解密
+    /**
+	 * 解密
+	 *
      * @param content  待解密内容
      * @param password 解密密钥
      * @return
+	 *
      */
     public static String aseDecrypt(byte[] content, String password) throws Exception {
 	    try {
@@ -114,28 +132,26 @@ public class EncryptUtil {
 			return new String(result).trim();
 	    } catch (NoSuchAlgorithmException e) {
 	        e.printStackTrace();
-	        throw new Exception("ASE解密失败1:"+e.getMessage());
+	        throw new Exception("ASE解密失败1:" + e.getMessage());
 	    } catch (NoSuchPaddingException e) {
 	        e.printStackTrace();
-	        throw new Exception("ASE解密失败2:"+e.getMessage());
+	        throw new Exception("ASE解密失败2:" + e.getMessage());
 	    } catch (InvalidKeyException e) {
 	        e.printStackTrace();
-	        throw new Exception("ASE解密失败3:"+e.getMessage());
-	    } catch (IllegalBlockSizeException e) {
+	        throw new Exception("ASE解密失败3:" + e.getMessage());
+	    } catch (IllegalBlockSizeException | BadPaddingException e) {
 	        e.printStackTrace();
-	        throw new Exception("ASE解密失败4:"+e.getMessage());
-	    } catch (BadPaddingException e) {
-	        e.printStackTrace();
-	        throw new Exception("ASE解密失败4:"+e.getMessage());
+	        throw new Exception("ASE解密失败4:" + e.getMessage());
 	    }
-    }
+	}
     
 	/**
-	 * MD5 加密方法
+	 * MD5 加密方法 16位
 	 * 
 	 * @param str
 	 * @return
 	 * @throws Exception
+	 *
 	 */
 	public static String getMD5(String str) throws Exception {
 		try {
@@ -152,7 +168,7 @@ public class EncryptUtil {
 	}
 
 	/**
-	 * MD5 加密方法
+	 * MD5 加密方法 256位
 	 * 
 	 * @param sourceStr
 	 * @return
@@ -168,10 +184,12 @@ public class EncryptUtil {
 			StringBuffer buf = new StringBuffer("");
 			for (int offset = 0; offset < b.length; offset++) {
 				i = b[offset];
-				if (i < 0)
+				if (i < 0) {
 					i += 256;
-				if (i < 16)
+				}
+				if (i < 16) {
 					buf.append("0");
+				}
 				buf.append(Integer.toHexString(i));
 			}
 			result = buf.toString();

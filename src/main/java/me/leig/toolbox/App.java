@@ -1,21 +1,23 @@
 package me.leig.toolbox;
 
-import me.leig.toolbox.encrypt.EncryptUtil;
+import org.apache.log4j.Logger;
 
 /**
- * Hello world!
+ * 程序入口
+ *
+ * @author leig
+ * @version 20180301
  *
  */
 public class App {
 
+    private static Logger log = Logger.getLogger(App.class);
+
     public static void main( String[] args ) {
 
-        try {
-            String result = EncryptUtil.getMD5("3247666666");
-            System.out.println(result);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        if (false)
+            log.info("输出一行");
+        log.info("输出二行");
     }
 
 }
