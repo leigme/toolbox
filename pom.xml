@@ -70,73 +70,71 @@
         </includes>
       </resource>
     </resources>
-    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
-      <plugins>
-        <!-- main 入口 配置 -->
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-jar-plugin</artifactId>
-          <configuration>
-            <archive>
-              <manifest>
-                <mainClass>${main.path}</mainClass>
-                <addClasspath>true</addClasspath>
-                <classpathPrefix>libs/</classpathPrefix>
-              </manifest>
-              <!-- 缺什么加什么 -->
-              <manifestEntries>
-                <Class-Path>libs/rw-parse-30-1.0-SNAPSHOT.jar</Class-Path>
-              </manifestEntries>
-            </archive>
-          </configuration>
-        </plugin>
+    <plugins>
+      <!-- main 入口 配置 -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>${main.path}</mainClass>
+              <addClasspath>true</addClasspath>
+              <classpathPrefix>libs/</classpathPrefix>
+            </manifest>
+            <!-- 缺什么加什么 -->
+            <manifestEntries>
+              <Class-Path>libs/rw-parse-30-1.0-SNAPSHOT.jar</Class-Path>
+            </manifestEntries>
+          </archive>
+        </configuration>
+      </plugin>
 
-        <!-- 拷贝依赖的jar包到libs目录 -->
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-dependency-plugin</artifactId>
-          <executions>
-            <execution>
-              <id>copy</id>
-              <phase>package</phase>
-              <goals>
-                <goal>copy-dependencies</goal>
-              </goals>
-              <configuration>
-                <!-- ${project.build.directory} 构建目录，缺省为target -->
-                <outputDirectory>${libs.path}</outputDirectory>
-              </configuration>
-            </execution>
-          </executions>
-        </plugin>
-        <!-- 将代码放置到指定目录下 -->
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-antrun-plugin</artifactId>
-          <executions>
-            <execution>
-              <id>copy</id>
-              <phase>package</phase>
-              <configuration>
-                <tasks>
-                  <!-- 导出jar包 -->
-                  <echo>导出jar包=================开始</echo>
-                  <copy todir="${build.path}">
-                    <fileset dir="${project.build.directory}">
-                      <include name="*.jar"/>
-                    </fileset>
-                  </copy>
-                  <echo>导出jar包=================结束</echo>
-                </tasks>
+      <!-- 拷贝依赖的jar包到libs目录 -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>copy</id>
+            <phase>package</phase>
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+            <configuration>
+              <!-- ${project.build.directory} 构建目录，缺省为target -->
+              <outputDirectory>${libs.path}</outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- 将代码放置到指定目录下 -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>copy</id>
+            <phase>package</phase>
+            <configuration>
+              <tasks>
+                <!-- 导出jar包 -->
+                <echo>导出jar包=================开始</echo>
+                <copy todir="${build.path}">
+                  <fileset dir="${project.build.directory}">
+                    <include name="*.jar"/>
+                  </fileset>
+                </copy>
+                <echo>导出jar包=================结束</echo>
+              </tasks>
 
-              </configuration>
-              <goals>
-                <goal>run</goal>
-              </goals>
-            </execution>
-          </executions>
-        </plugin>
-      </plugins>
-    </pluginManagement>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
   </build>
 </project>
