@@ -12,6 +12,8 @@ import java.io.InputStreamReader;
  * 配置文件读取对象
  *
  * @author leig
+ * @version 20180301
+ * 
  */
 
 public class AnalyzeConfig {
