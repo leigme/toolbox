@@ -13,7 +13,7 @@ import java.io.InputStreamReader;
  *
  * @author leig
  * @version 20180301
- * 
+ *
  */
 
 public class AnalyzeConfig {

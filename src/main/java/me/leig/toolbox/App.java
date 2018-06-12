@@ -1,5 +1,6 @@
 package me.leig.toolbox;
 
+import me.leig.toolbox.encrypt.EncryptUtil;
 import me.leig.toolbox.resolve.AnalyzeConfig;
 import me.leig.toolbox.resolve.ConfigBean;
 import org.apache.log4j.Logger;
@@ -57,7 +58,12 @@ public class App {
 
         log.info("程序版本是: " + configBean.getVersion());
 
-
+        try {
+            log.debug("密码是: " + EncryptUtil.getMD5("leig0616"));
+            log.debug("密码是: " + EncryptUtil.getMD5("qianqian0616"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
